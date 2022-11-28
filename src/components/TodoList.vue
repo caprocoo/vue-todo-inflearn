@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul>
-      <li v-for=" (todoItem, index) in todoItems" v-bind:key="todoItem.item" class = "shadow">
+      <li v-for=" (todoItem, index) in propsData" v-bind:key="todoItem.item" class = "shadow">
         <i class = "checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem, index)"></i>
         
         <!-- todoItem.complete가 true면 class가 textCompleted로 적용 -->
@@ -17,11 +17,9 @@
 
 <script>
 export default {
-  data: function(){
-    return{
-      todoItems : []
-    }
-  },
+  props:[
+    'propsData'
+  ],
   methods:{
     toggleComplete:function(todoItem, index){
        todoItem.completed = !todoItem.completed;
@@ -34,19 +32,7 @@ export default {
       this.todoItems.splice(index,1);
     }
   },
-  created:function(){
-    if(localStorage.length>0){
-      for(var i =0; i<localStorage.length; i++){
-        if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
-          
-          
-          
-          this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-        }
-        // console.log(localStorage.key(i))
-      }
-    }
-  },
+
 
 }
 </script>
