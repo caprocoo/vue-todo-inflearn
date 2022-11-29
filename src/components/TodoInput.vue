@@ -32,7 +32,7 @@ export default {
     }
   },
   methods: {
-    addTodo: function () {
+    addTodo() {
 
       if (this.newTodoItem !== '') {
         this.$emit('addTodoItem', this.newTodoItem);
@@ -47,7 +47,7 @@ export default {
     }
   },
   components: {
-    AlertModal: AlertModal
+    AlertModal
   }
 }
 </script>
