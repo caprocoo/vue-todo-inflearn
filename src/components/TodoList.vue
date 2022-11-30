@@ -19,15 +19,27 @@
 
 <script>
 export default {
-  props: [
-    'propsData'
-  ],
-  methods: {
+
+    methods: {
     toggleComplete(todoItem, index) {
-      this.$emit('toggleItem', todoItem, index)
+
+      // this.$emit('toggleItem', todoItem, index)
+      const payload = {
+        todoItem : todoItem,
+        index : index
+      }
+
+      this.$store.commit('toggleComplete', payload);
     },
     removeTodo (todoItem, index) {
-      this.$emit('removeItem', todoItem, index)
+
+      // this.$emit('removeItem', todoItem, index)
+      const payload = {
+        todoItem : todoItem,
+        index : index
+      }
+      this.$store.commit('removeOneItem', payload);
+
 
     }
   },

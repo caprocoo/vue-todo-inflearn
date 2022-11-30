@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <TodoHeader />
-    <TodoInput v-on:addTodoItem="addOneItem"/>
-    <TodoList v-bind:propsData="todoItems" v-on:removeItem = "removeOneItem" v-on:toggleItem="toggleComplete"/>
-    <TodoFooter v-on:clearAll="clearAllItem" />
+    <TodoInput />
+    <TodoList />
+    <TodoFooter/>
   </div>
 </template>
 
@@ -21,30 +21,27 @@ export default {
       }
     },
     methods:{
-      addOneItem(todoItem){
-        const obj = {completed:false, item:todoItem};
-        localStorage.setItem(todoItem, JSON.stringify(obj));
-        this.todoItems.push(obj);
-      },
-      removeOneItem(todoItem, index){
-        localStorage.removeItem(todoItem.item);
-        this.todoItems.splice(index,1);
-      },
-      toggleComplete(todoItem, index){
-        // todoItem.completed = !todoItem.completed;
-        this.todoItems[index].completed = !this.todoItems[index].completed
-        localStorage.removeItem(todoItem.item);
-        localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
-        console.log(index);
-      },
-      clearAllItem(){
-        localStorage.clear();
-        this.todoItems = [];
-      }
+      // addOneItem(todoItem){
+      //   const obj = {completed:false, item:todoItem};
+      //   localStorage.setItem(todoItem, JSON.stringify(obj));
+      //   this.todoItems.push(obj);
+      // },
+      // removeOneItem(todoItem, index){
+      //   localStorage.removeItem(todoItem.item);
+      //   this.todoItems.splice(index,1);
+      // },
+      // toggleComplete(todoItem, index){
+      //   // todoItem.completed = !todoItem.completed;
+      //   this.todoItems[index].completed = !this.todoItems[index].completed
+      //   localStorage.removeItem(todoItem.item);
+      //   localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+      //   console.log(index);
+      // },
+      // clearAllItem(){
+      //   localStorage.clear();
+      //   this.todoItems = [];
+      // }
     },
-    created(){
-
-  },
   components: {
     TodoHeader,
     TodoInput,
