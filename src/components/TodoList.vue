@@ -2,13 +2,13 @@
   <div>
     <transition-group name="list" tag="ul">
 
-      <li v-for=" (todoItem, index) in this.$store.state.todoItems" v-bind:key="todoItem.item" class="shadow">
+      <li v-for=" (todoItem, index) in this.todoItems" v-bind:key="todoItem.item" class="shadow">
         <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}"
-           v-on:click="toggleComplete(todoItem, index)"></i>
+           v-on:click="toggleComplete({todoItem, index})"></i>
 
         <!-- todoItem.complete가 true면 class가 textCompleted로 적용 -->
         <span v-bind:class="{textCompleted: todoItem.completed}"> {{ todoItem.item }} </span>
-        <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
+        <span class="removeBtn" v-on:click="removeTodo({todoItem, index})">
         <i class="fas fa-trash-alt"></i>
       </span>
       </li>
@@ -18,30 +18,51 @@
 </template>
 
 <script>
+import {mapState, mapGetters, mapMutations} from 'vuex';
+
 export default {
 
-    methods: {
-    toggleComplete(todoItem, index) {
+  computed:{
+    // mapState로 store js에서 todoItems 가져오기
+    ...mapState(['todoItems']),
 
-      // this.$emit('toggleItem', todoItem, index)
-      const payload = {
-        todoItem : todoItem,
-        index : index
-      }
-
-      this.$store.commit('toggleComplete', payload);
-    },
-    removeTodo (todoItem, index) {
-
-      // this.$emit('removeItem', todoItem, index)
-      const payload = {
-        todoItem : todoItem,
-        index : index
-      }
-      this.$store.commit('removeOneItem', payload);
+    // mapGetters로 store js에서 todoItems 가져오기
+    ...mapGetters(['storedTodoItems']),
+  },
+  methods: {
 
 
-    }
+    // store mutation helper 사용
+    ...mapMutations({
+      removeTodo : 'removeOneItem',
+      toggleComplete : 'toggleComplete'
+    }),
+
+    // store mutation 바로 호출 - remove
+    // removeTodo (todoItem, index) {
+    //
+    //   // this.$emit('removeItem', todoItem, index)
+    //   const payload = {
+    //     todoItem : todoItem,
+    //     index : index
+    //   }
+    //   this.$store.commit('removeOneItem', payload);
+    //
+    //
+    // }
+
+    // store mutation 바로 호출 - toggleComplete
+    // toggleComplete(todoItem, index) {
+    //
+    //   // this.$emit('toggleItem', todoItem, index)
+    //   const payload = {
+    //     todoItem : todoItem,
+    //     index : index
+    //   }
+    //
+    //   this.$store.commit('toggleComplete', payload);
+    // },
+
   },
 
 
